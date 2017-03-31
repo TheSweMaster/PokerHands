@@ -20,69 +20,49 @@ namespace PokerHandsTestProject
         }
 
         [TestMethod]
-        public void CreateCardDeck_FirstCard_IdShouldBe1()
+        public void CreateCardDeck_AmountOfKings_ShouldBe4()
         {
             // Arrange
             var deckList = new List<Card>();
             // Act
             deckList = Program.CreateCardDeck();
+            var result = deckList.FindAll(x => x.Value == "King").Count;
             // Assert
-            Assert.IsTrue(deckList[0].Id == 1);
+            Assert.IsTrue(result == 4);
         }
 
         [TestMethod]
-        public void CreateCardDeck_FirstCard_ColorShouldBeClubs()
+        public void CreateCardDeck_AmountOfHearts_ShouldBe13()
         {
             // Arrange
             var deckList = new List<Card>();
             // Act
             deckList = Program.CreateCardDeck();
+            var result = deckList.FindAll(x => x.Color == "Hearts").Count;
             // Assert
-            Assert.IsTrue(deckList[0].Color == "Clubs");
+            Assert.IsTrue(result == 13);
         }
 
         [TestMethod]
-        public void CreateCardDeck_FirstCard_ValueShouldBe2()
+        public void CreateCardDeck_FirstCard_ShouldBeClubsOf2AndId1()
         {
             // Arrange
             var deckList = new List<Card>();
             // Act
             deckList = Program.CreateCardDeck();
             // Assert
-            Assert.IsTrue(deckList[0].Value == "2");
+            Assert.IsTrue(deckList[0].Color == "Clubs" && deckList[0].Value == "2" && deckList[0].Id == 1);
         }
 
         [TestMethod]
-        public void CreateCardDeck_LastCard_IdShouldBe52()
+        public void CreateCardDeck_FirstCard_ShouldBeHeartsOfAceAndId52()
         {
             // Arrange
             var deckList = new List<Card>();
             // Act
             deckList = Program.CreateCardDeck();
             // Assert
-            Assert.IsTrue(deckList[51].Id == 52);
-        }
-
-        [TestMethod]
-        public void CreateCardDeck_LastCard_ColorShouldBeHearts()
-        {
-            // Arrange
-            var deckList = new List<Card>();
-            // Act
-            deckList = Program.CreateCardDeck();
-            // Assert
-            Assert.IsTrue(deckList[51].Color == "Hearts");
-        }
-
-        [TestMethod]
-        public void CreateCardDeck_LastCard_ValueShouldBeAce()
-        {
-            // Arrange
-            var deckList = new List<Card>();
-            // Act
-            deckList = Program.CreateCardDeck();
-            // Assert
-            Assert.IsTrue(deckList[51].Value == "Ace");
+            Assert.IsTrue(deckList[51].Color == "Hearts" && deckList[51].Value == "Ace" && deckList[51].Id == 52);
         }
 
         [TestMethod]
