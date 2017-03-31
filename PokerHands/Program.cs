@@ -15,6 +15,7 @@ namespace PokerHands
             {
                 List<Card> deckList = new List<Card>();
                 List<Card> pokerHandList = new List<Card>();
+                Console.ForegroundColor = ConsoleColor.White;
 
                 PrintWelcomeText();
 
@@ -43,7 +44,6 @@ namespace PokerHands
                     Console.Clear();
                 }
             }
-
         }
 
         private static void PrintWelcomeText()
@@ -108,8 +108,17 @@ namespace PokerHands
         {
             foreach (var card in cardList)
             {
+                if (card.Color == "Hearts")
+                    Console.ForegroundColor = ConsoleColor.Red;
+                if (card.Color == "Spades")
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                if (card.Color == "Clubs")
+                    Console.ForegroundColor = ConsoleColor.Green;
+                if (card.Color == "Diamonds")
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine($"{card.Value} of {card.Color}");
             }
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
         }
 
