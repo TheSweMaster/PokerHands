@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokerHands;
 using System.Collections.Generic;
@@ -16,7 +17,31 @@ namespace PokerHandsTestProject
             // Act
             deckList = Program.CreateCardDeck();
             // Assert
-            Assert.IsTrue(deckList.Count == 52);
+            Assert.AreEqual(deckList.Count, 52);
+        }
+
+        [TestMethod]
+        public void CreateCardDeck_DistinctValues_ShouldBe13()
+        {
+            // Arrange
+            var deckList = new List<Card>();
+            // Act
+            deckList = Program.CreateCardDeck();
+            var result = deckList.Select(x => x.Value).Distinct().ToList().Count;
+            // Assert
+            Assert.AreEqual(result, 13);
+        }
+
+        [TestMethod]
+        public void CreateCardDeck_DistinctColors_ShouldBe4()
+        {
+            // Arrange
+            var deckList = new List<Card>();
+            // Act
+            deckList = Program.CreateCardDeck();
+            var result = deckList.Select(x => x.Color).Distinct().ToList().Count;
+            // Assert
+            Assert.AreEqual(result, 4);
         }
 
         [TestMethod]
@@ -28,7 +53,7 @@ namespace PokerHandsTestProject
             deckList = Program.CreateCardDeck();
             var result = deckList.FindAll(x => x.Value == "King").Count;
             // Assert
-            Assert.IsTrue(result == 4);
+            Assert.AreEqual(result, 4);
         }
 
         [TestMethod]
@@ -40,29 +65,73 @@ namespace PokerHandsTestProject
             deckList = Program.CreateCardDeck();
             var result = deckList.FindAll(x => x.Color == "Hearts").Count;
             // Assert
-            Assert.IsTrue(result == 13);
+            Assert.AreEqual(result, 13);
         }
 
         [TestMethod]
-        public void CreateCardDeck_FirstCard_ShouldBeClubsOf2AndId1()
+        public void CreateCardDeck_FirstCard_ColorShouldBeClubs()
         {
             // Arrange
             var deckList = new List<Card>();
             // Act
             deckList = Program.CreateCardDeck();
             // Assert
-            Assert.IsTrue(deckList[0].Color == "Clubs" && deckList[0].Value == "2" && deckList[0].Id == 1);
+            Assert.AreEqual(deckList[0].Color, "Clubs");
         }
 
         [TestMethod]
-        public void CreateCardDeck_FirstCard_ShouldBeHeartsOfAceAndId52()
+        public void CreateCardDeck_FirstCard_ValueShouldBe2()
+        {
+            // Arrange
+            var deckList = new List<Card>();
+
+            // Act
+            deckList = Program.CreateCardDeck();
+            // Assert
+            Assert.AreEqual(deckList[0].Value, "2");
+        }
+        [TestMethod]
+        public void CreateCardDeck_FirstCard_IdShouldBe1()
         {
             // Arrange
             var deckList = new List<Card>();
             // Act
             deckList = Program.CreateCardDeck();
             // Assert
-            Assert.IsTrue(deckList[51].Color == "Hearts" && deckList[51].Value == "Ace" && deckList[51].Id == 52);
+            Assert.AreEqual(deckList[0].Id, 1);
+        }
+
+        [TestMethod]
+        public void CreateCardDeck_LastCard_ColorShouldBeHearts()
+        {
+            // Arrange
+            var deckList = new List<Card>();
+            // Act
+            deckList = Program.CreateCardDeck();
+            // Assert
+            Assert.AreEqual(deckList[deckList.Count - 1].Color, "Hearts");
+        }
+
+        [TestMethod]
+        public void CreateCardDeck_LastCard_ValueShouldBeAce()
+        {
+            // Arrange
+            var deckList = new List<Card>();
+            // Act
+            deckList = Program.CreateCardDeck();
+            // Assert
+            Assert.AreEqual(deckList[deckList.Count - 1].Value, "Ace");
+        }
+
+        [TestMethod]
+        public void CreateCardDeck_LastCard_IdShouldBe52()
+        {
+            // Arrange
+            var deckList = new List<Card>();
+            // Act
+            deckList = Program.CreateCardDeck();
+            // Assert
+            Assert.AreEqual(deckList[deckList.Count - 1].Id, 52);
         }
 
         [TestMethod]
@@ -80,8 +149,9 @@ namespace PokerHandsTestProject
             };
             // Act
             sortedList = Program.SortCards(deckList);
+            var result = sortedList[0].Id == 1 && sortedList[1].Id == 2 && sortedList[2].Id == 3 && sortedList[3].Id == 4 && sortedList[4].Id == 5;
             // Assert
-            Assert.IsTrue(sortedList[0].Id == 1 && sortedList[1].Id == 2 && sortedList[2].Id == 3 && sortedList[3].Id == 4 && sortedList[4].Id == 5);
+            Assert.IsTrue(result);
         }
 
     }

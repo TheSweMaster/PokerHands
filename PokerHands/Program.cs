@@ -11,12 +11,17 @@ namespace PokerHands
         public static void Main(string[] args)
         {
             bool Quit = false;
+            int playCount = 0;
+            int fullHouseCount = 0;
+            int flushCount = 0;
+
             while (Quit == false)
             {
                 List<Card> deckList = new List<Card>();
                 List<Card> pokerHandList = new List<Card>();
-                Console.ForegroundColor = ConsoleColor.White;
+                playCount++;
 
+                Console.ForegroundColor = ConsoleColor.White;
                 PrintWelcomeText();
 
                 deckList = CreateCardDeck();
@@ -26,11 +31,26 @@ namespace PokerHands
                 pokerHandList = DrawAmoutOfCardsFromDeckList(5, deckList);
                 pokerHandList = SortCards(pokerHandList);
 
-                Console.WriteLine("Cards in your deck:");
-                PrintCards(deckList);
+                //Console.WriteLine("Cards in your deck:");
+                //PrintCards(deckList);
 
                 Console.WriteLine("Sorted cards in your hand:");
                 PrintCards(pokerHandList);
+
+                if (pokerHandList.Select(x => x.Value).Distinct().ToList().Count == 2)
+                {
+                    fullHouseCount++;
+                }
+
+                if (pokerHandList.Select(x => x.Color).Distinct().ToList().Count == 1)
+                {
+                    flushCount++;
+                }
+
+                Console.WriteLine($"Amount Of Plays: {playCount}");
+                Console.WriteLine($"Amount Of Full Houses: {fullHouseCount}");
+                Console.WriteLine($"Amount Of Flushes: {flushCount}");
+                Console.WriteLine();
 
                 PlayAgainText();
 
